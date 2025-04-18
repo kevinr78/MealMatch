@@ -77,7 +77,7 @@ export default function Landing() {
               <button
                 className="btn bg-yellow-300"
                 onClick={() => {
-                  navigate("/organization/login");
+                  navigate("/organization/register");
                 }}
               >
                 Register

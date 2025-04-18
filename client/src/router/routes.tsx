@@ -1,5 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import Landing from "@/pages/Authentication/Landing";
+import RestaurantRegister from "@/pages/Authentication/Restaurant/Register";
+import RestaurantLogin from "@/pages/Authentication/Restaurant/Login";
+import OrganizationRegister from "@/pages/Authentication/Organization/Register";
+import OrganizationLogin from "@/pages/Authentication/Organization/Login";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -8,19 +13,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/restaurant/register",
-    element: <div>Register</div>,
+    element: <RestaurantRegister />,
   },
   {
     path: "/restaurant/login",
-    element: <div>Login</div>,
+    element: <RestaurantLogin />,
   },
   {
     path: "/organization/register",
-    element: <div>Register</div>,
+    element: <OrganizationRegister />,
   },
   {
     path: "/organization/login",
-    element: <div>Login</div>,
+    element: <OrganizationLogin />,
   },
 
   {
