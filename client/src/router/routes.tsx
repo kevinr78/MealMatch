@@ -4,7 +4,8 @@ import RestaurantRegister from "@/pages/Authentication/Restaurant/Register";
 import RestaurantLogin from "@/pages/Authentication/Restaurant/Login";
 import OrganizationRegister from "@/pages/Authentication/Organization/Register";
 import OrganizationLogin from "@/pages/Authentication/Organization/Login";
-
+import Navbar from "@/components/Navbar";
+import BaseLayout from "@/components/BaseLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
 
   {
     path: "/restaurants",
-    element: <div>Restaurants</div>,
+    element: <BaseLayout />,
     errorElement: <div>404</div>,
     children: [
       {
