@@ -2,14 +2,14 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
-
+import connectDB from "./config/db/connection.js";
 import restaurantRouter from "./routes/Restaurant/routes.js";
-import { connectDB } from "./config/db/connection.js";
+import organizationRouter from "./routes/Organization/routes.js";
 import { globalErrorHandler } from "./utils/Error/errorHelper.js";
-import { error } from "console";
+
 dotenv.config();
 // MongoDB connection
-connectDB();
+const connection = connectDB();
 
 const __dirname = path.resolve();
 
@@ -21,7 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/restaurants", restaurantRouter);
+app.use("/restaurant", restaurantRouter);
+app.use("/organization", organizationRouter);
 
 app.use(globalErrorHandler);
 
