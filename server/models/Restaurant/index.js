@@ -20,7 +20,7 @@ const restaurantSchema = new mongoose.Schema(
     pickup_lead_time_minutes: { type: Number, default: 30 },
     is_first_login: { type: Boolean, default: true },
     requires_manual_confirmation: { type: Boolean, default: false },
-    password: { type: String, required: true },
+    restaurant_password: { type: String, required: true },
     restaurant_email: { type: String, required: true, unique: true },
     default_pickup_windows: { type: Array },
     restaurant_image: { type: String },
@@ -28,14 +28,12 @@ const restaurantSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-restaurantSchema.index({ restaurant_name: "text" });
-restaurantSchema.index({ restaurant_location: "text" });
 
 restaurantSchema.methods.hashPassword = async function (password) {
-  return bcrypt.hash(this.password, await bcrypt.genSalt(10));
+  return bcrypt.hashSync(password, await bcrypt.genSalt(10));
 };
 restaurantSchema.methods.comparePassword = function (password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compare(password, this.restaurant_password);
 };
 
 export default mongoose.model("Restaurant", restaurantSchema);

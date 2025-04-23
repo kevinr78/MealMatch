@@ -1,9 +1,32 @@
 import { Input } from "@/components/Input";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useNavigationType } from "react-router-dom";
+import { fetcher } from "@/lib/fetch";
+import { toast } from "react-toastify";
+import { APIResponse } from "@/lib/types";
 export default function RestaurantRegister() {
   const navigate = useNavigate();
   const navType = useNavigationType();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    formData.append("restaurant_location", "restaurant");
+    const data = Object.fromEntries(formData.entries());
+
+    const response: APIResponse = await fetcher("/restaurant/register", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (response) {
+      const { token } = response;
+      localStorage.setItem("restaurant_token", token as string);
+      toast.success("Restaurant registered successfully");
+      navigate("/restaurants");
+    }
+  };
   return (
     <div className="w-screen h-screen bg-amber-100">
       <div className=" flex flex-col sm:grid  sm:grid-cols-auto     grid-rows-auto gap-4">
@@ -31,13 +54,19 @@ export default function RestaurantRegister() {
         </div>
         <div className="col-span-2 row-span-1 row-start-2 ">
           <section id="restaurant-form-container">
-            <form className="p-4">
+            <form
+              className="p-4"
+              method="POST"
+              id="restaurant-registration-form"
+              onSubmit={handleSubmit}
+            >
               <Input
                 name="restaurant_name"
                 label="Restaurant Name"
                 placeholder="Name"
                 required
                 minLength={2}
+                inputclassname="validator"
                 hint="Must be at least 2 characters long"
               />
               <div className="grid grid-cols-2 grid-rows-2">
@@ -47,6 +76,7 @@ export default function RestaurantRegister() {
                     label="Restaurant Email"
                     type="email"
                     placeholder="Email"
+                    inputclassname="validator"
                     minLength={5}
                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                     hint="Enter a valid email address"
@@ -56,6 +86,9 @@ export default function RestaurantRegister() {
                     type="password"
                     label="Restaurant password"
                     placeholder="Password"
+                    inputclassname="validator"
+                    minLength={8}
+                    hint="Must be at least 8 characters long"
                   />
                 </div>
                 <div className="col-span-2 row-start-2 flex gap-2">
@@ -64,14 +97,17 @@ export default function RestaurantRegister() {
                     label="Restaurant Contact Person Name"
                     type="text"
                     placeholder="Name"
+                    inputclassname="validator"
+                    minLength={2}
+                    hint="Must be at least 2 characters long"
                   />
                   <Input
                     name="restaurant_contact"
                     type="tel"
                     inputclassname="tabular-nums validator "
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
                     minLength={10}
-                    maxLength={10}
+                    maxLength={13}
                     title="Must be a valid phone number"
                     label="Restaurant Contact Number"
                     placeholder="Phone"
@@ -84,25 +120,34 @@ export default function RestaurantRegister() {
                 label="Restaurant Address"
                 type="text"
                 placeholder="Address"
+                inputclassname="validator"
+                minLength={2}
+                hint="Please fill address"
               />
               <div className="flex gap-2">
                 <Input
                   name="restaurant_city"
                   label="City"
+                  inputclassname="validator"
                   type="text"
+                  hint="Please fill city"
                   placeholder="City"
                 />
                 <Input
                   name="restaurant_state"
                   label="State"
+                  hint="Please fill state"
                   type="text"
+                  inputclassname="validator"
                   placeholder="State"
                 />
                 <Input
                   name="restaurant_zip_code"
                   label="Zip Code"
+                  hint="Please fill zip code"
                   type="number"
                   placeholder="Zip Code"
+                  inputclassname="validator"
                 />
               </div>
               <div className=" flex justify-end mt-4 gap-2">

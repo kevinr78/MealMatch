@@ -72,3 +72,14 @@ export type Order = {
   order_restaurant_id: string;
   order_organization_id: string;
 };
+
+type ErrorResponse = {
+  message: string;
+  reason?: string;
+};
+export type APIResponse = {
+  success: boolean;
+  error?: ErrorResponse;
+  data?: any;
+  token?: string;
+};
