@@ -10,7 +10,7 @@ type InputProps = {
 
 export function Input(props: InputProps) {
   return (
-    <div className="flex flex-col gap-1 flex-1 mb-2">
+    <div className="flex flex-col gap-1 flex-1 ">
       <label htmlFor="restaurant_name" className="label text-sm">
         {props.label}
       </label>

@@ -6,6 +6,7 @@ import connectDB from "./config/db/connection.js";
 import restaurantRouter from "./routes/Restaurant/routes.js";
 import organizationRouter from "./routes/Organization/routes.js";
 import { globalErrorHandler } from "./utils/Error/errorHelper.js";
+import listingRouter from "./routes/Listing/routes.js";
 
 dotenv.config();
 // MongoDB connection
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/restaurant", restaurantRouter);
 app.use("/organization", organizationRouter);
+app.use("/listings", listingRouter);
 
 app.use(globalErrorHandler);
 

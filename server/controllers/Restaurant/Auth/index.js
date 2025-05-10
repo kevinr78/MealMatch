@@ -42,7 +42,7 @@ export const register = async (req, res, next) => {
     res.status(201).json({
       token,
       success: true,
-      data: null,
+      data: { id: restaurant._id, name: restaurant.restaurant_name },
       message: "Restaurant registered successfully",
     });
   } catch (err) {

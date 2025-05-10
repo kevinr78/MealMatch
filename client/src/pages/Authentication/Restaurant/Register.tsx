@@ -24,7 +24,7 @@ export default function RestaurantRegister() {
       const { token } = response;
       localStorage.setItem("restaurant_token", token as string);
       toast.success("Restaurant registered successfully");
-      navigate("/restaurants");
+      navigate("/restaurants/dashboard");
     }
   };
   return (

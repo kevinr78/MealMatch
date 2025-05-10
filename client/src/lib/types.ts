@@ -48,11 +48,13 @@ export type OrderStatus =
 export type RestaurantStatus = "Open" | "Closed";
 
 export type Listing = {
-  listing_id: string;
+  _id: string;
   listing_item_title: string;
   listing_item_description: string;
   listing_item_quantity: number;
   listing_item_category: string;
+  listing_item_portion_size: number;
+  listing_item_portion_unit: string;
   listing_item_restaurant_id: string;
   listing_item_expiry_time: string;
   listing_item_pickup_time: string;

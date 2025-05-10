@@ -4,7 +4,10 @@ import { useNavigate, useNavigationType } from "react-router-dom";
 import { fetcher } from "@/lib/fetch";
 import { APIResponse } from "@/lib/types";
 import { toast } from "react-toastify";
+import { useUserAuth } from "@/pages/store/authContext";
+import { log } from "console";
 export default function RestaurantLogin() {
+  const { login } = useUserAuth();
   const navigate = useNavigate();
   const navType = useNavigationType();
 
@@ -21,10 +24,11 @@ export default function RestaurantLogin() {
     });
 
     if (response) {
-      const { token } = response;
-      localStorage.setItem("restaurant_token", token as string);
+      const { token, data } = response;
+      console.log(data);
+      login(data, token as string);
       toast.success("Restaurant logged in successfully");
-      navigate("/restaurants");
+      navigate("/restaurants/dashboard");
     }
   };
   return (
